@@ -364,16 +364,11 @@ int main (int argc, char* argv[])
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
-     int val = rand() % range;
-     rb_tree.insert(val);
-     rb_tree.delete_value(val);
+     rb_tree.insert(i);
     }
-/*
     for (long long i=0;i<size;++i){
-     int val = rand() % range;
-     rb_tree.delete_value(val);
+     rb_tree.delete_value(i);
     }
-*/
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){

@@ -42,24 +42,20 @@ main(int argc, char* argv[] )
   
   if ( strcmp(cmd, "insert") == 0 ) {
     for (long long i=0;i<size;++i){
-       int v1 = rand() % 7;
-       int v2 = rand() % 7;
-       add_edge(family(v1), family(v2), g);
+       add_edge(family(i%7), family((i+1)%7), g);
     }
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
-       int v1 = rand() % 7;
-       int v2 = rand() % 7;
-       add_edge(family(v1), family(v2), g);
-       remove_edge(family(v1), family(v2), g);
+       add_edge(family(i%7), family((i+1)%7), g);
+    }
+    for (long long i=0;i<size;++i){
+       remove_edge(family(i%7), family((i+1)%7), g);
     }
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
-       int v1 = rand() % 7;
-       int v2 = rand() % 7;
-       add_edge(family(v1), family(v2), g);
+       add_edge(family(i%7), family((i+1)%7), g);
     }
 
     graph_traits < adjacency_list <> >::vertex_iterator i, end;

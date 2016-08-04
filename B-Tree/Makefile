@@ -1,4 +1,4 @@
-all: B-Tree.cpp
-	g++ B-Tree.cpp -o B-Tree
+all: btree.cpp
+	g++ btree.cpp -o B-Tree
 clean: 
 	rm -fr B-Tree

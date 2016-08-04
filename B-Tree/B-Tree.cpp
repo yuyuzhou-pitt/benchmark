@@ -201,10 +201,10 @@ int BTree :: delhelp ( long long val, btnode *root )
 		}
 		else
 			flag = delhelp ( val, root -> child[i] ) ;
-		if ( root -> child[i] != NULL )
-		{
-			if ( root -> child[i] -> count < MIN )
+		if ( root -> child[i] != NULL ) {
+			if ( root -> child[i] -> count < MIN ) {
 				restore ( root, i ) ;
+                        }
 		}
 		return flag ;
 	}
@@ -378,21 +378,21 @@ int main (int argc, char* argv[])
 
   if ( strcmp(cmd, "insert") == 0 ) {
     for (long long i=0;i<size;++i){
-     long long val = rand() % range;
-     btree.insert(val);
+     btree.insert(i);
     }
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
-     long long val = rand() % range;
-     btree.insert(val);
-     btree.del(val);
+     btree.insert(i);
+    }
+    btree.show();
+    for (long long i=size-1;i>=0;--i){
+     btree.del(i);
     }
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
-     long long val = rand() % range;
-     btree.insert(val);
+     btree.insert(i);
     }
     btree.show();
   }
