@@ -21,13 +21,23 @@ uint64_t random_range(uint64_t x,uint64_t y)                   //To generate a r
 int main(int argc, char** argv)
 {
     uint64_t n;
-    if (argc != 2) {
-        cout<<"usage: "<<argv[0]<<" <array_size>\n";
+    if (argc < 2) {
+        cout<<"usage: "<<argv[0]<<" <array_size> <rounds>\n";
         return -1; 
     }
     else {
          n = atoi(argv[1]);
     }
+
+  int rounds= 1; // run 1 time by default
+  if ( argc > 2) {
+    rounds = atoll(argv[2]);
+  }
+
+  cout << argv[0] << " with size " << n << " repeat " << rounds << " rounds" << endl;
+
+  int round;
+  for (round=0;round<rounds;++round){
     uint64_t* arr;
     arr = (uint64_t*) calloc(n, sizeof(uint64_t));
     if (arr == NULL) {
@@ -41,6 +51,8 @@ int main(int argc, char** argv)
     for(uint64_t i = 0;i < 1000;i++)
         swap(arr[i],arr[random_range(0,n-1)]);
 
+    cout << n << " times returned in round " << round << "." << endl;
+  }
     //display(arr,n);
     //for(uint64_t i = 0;i < n;i++)
     //    cout << arr[i] << ' ';

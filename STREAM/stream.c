@@ -92,10 +92,10 @@
  */
 #ifndef STREAM_ARRAY_SIZE 
 //#   define STREAM_ARRAY_SIZE	2800  //64KB
-#   define STREAM_ARRAY_SIZE	45000  //1MB
+//#   define STREAM_ARRAY_SIZE	45000  //1MB
 //#   define STREAM_ARRAY_SIZE	90000  //2MB
 //#   define STREAM_ARRAY_SIZE	180000  //4MB
-//#   define STREAM_ARRAY_SIZE	350000  //8MB 
+#   define STREAM_ARRAY_SIZE	350000  //8MB 
 //#   define STREAM_ARRAY_SIZE	700000  //16MB 
 //#   define STREAM_ARRAY_SIZE	1400000  //32MB 
 //#   define STREAM_ARRAY_SIZE	4500000  //100MB
@@ -112,7 +112,8 @@
  */
 //#ifdef NTIMES
 //#if NTIMES<=1
-#   define NTIMES	1
+//#   define NTIMES	1
+#   define NTIMES	75
 //#endif
 //#endif
 //#ifndef NTIMES

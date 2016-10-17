@@ -22,7 +22,7 @@ int
 main(int argc, char* argv[] )
 {
   using namespace boost;
-  std::string usage = "USAGE: ./SDG <insert|delete|list> <size>";
+  std::string usage = "USAGE: ./SDG <insert|delete|list> <size> <rounds>";
 
   if ( argc < 3 ){
    std::cout << usage << std::endl;
@@ -33,12 +33,22 @@ main(int argc, char* argv[] )
   long long size = atoll(argv[2]);
 
 
+
   const char *name[] = { "Jeanie", "Debbie", "Rick", "John", "Amanda",
     "Margaret", "Benjamin"
   };
 
   adjacency_list <> g(N);
-  std::cout << cmd << " with size " << size << std::endl;
+
+  int rounds = 1; // run 1 time by default
+  if ( argc > 3) {
+    rounds = atoll(argv[3]);
+  }
+
+  std::cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << std::endl;
+
+int i;
+for (i=0;i<rounds;++i){
   
   if ( strcmp(cmd, "insert") == 0 ) {
     for (long long i=0;i<size;++i){
@@ -84,7 +94,9 @@ main(int argc, char* argv[] )
     return -1;
   }
 
-  std::cout << size << " items returned." << std::endl;
+  std::cout << size << " items returned in round " << i << "." << std::endl;
+
+}
   
   return EXIT_SUCCESS;
 }

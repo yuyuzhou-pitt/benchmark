@@ -341,7 +341,7 @@ private:
 
 int main (int argc, char* argv[])
 {
-  string usage = "usage: ./rb-tree <insert|delete|list> <size>";
+  string usage = "usage: ./rb-tree <insert|delete|list> <size> <rounds>";
 
   if ( argc < 3 ){
    cout << usage << endl;
@@ -351,10 +351,19 @@ int main (int argc, char* argv[])
   char* cmd = argv[1];
   long long size = atoll(argv[2]);
 
-  cout << cmd << " with size " << size << endl;
+  int rounds = 1; // run 1 time by default 
+  if ( argc > 3) {
+    rounds = atoll(argv[3]);
+  }
+
+  cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << endl;
+
 
   bst rb_tree;
   int range = INT_MAX;
+
+int i;
+for (i=0;i<rounds;++i){
 
   if ( strcmp( cmd, "insert" ) == 0 ) {
     for (long long i=0;i<size;++i){
@@ -382,7 +391,9 @@ int main (int argc, char* argv[])
     return -1;
   }
 
-  cout << size << " items returned." << endl;
+  cout << size << " items returned in round " << i << "." << endl;
+
+}
 
   return 0;
 }

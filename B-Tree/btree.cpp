@@ -606,7 +606,7 @@ void BTree::remove(int k)
 int main (int argc, char* argv[])
 {
 
-  string usage = "USAGE: ./RB-Tree <insert|delete|list> <size>";
+  string usage = "USAGE: ./RB-Tree <insert|delete|list> <size> <rounds>";
 
   if ( argc < 3 ){
    cout << usage << endl;
@@ -616,10 +616,18 @@ int main (int argc, char* argv[])
   char* cmd = argv[1];
   long long size = atoll(argv[2]);
 
-  cout << cmd << " with size " << size << endl;
+  int rounds = 1; // run 1 time by default 
+  if ( argc > 3) {
+    rounds = atoll(argv[3]);
+  }
+
+  cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << endl;
 
   BTree btree(3); // A B-Tree with minium degree 3
   long long range = LLONG_MAX;
+
+int i;
+for (i=0;i<rounds;++i){
 
   if ( strcmp(cmd, "insert") == 0 ) {
     for (long long i=0;i<size;++i){
@@ -645,8 +653,8 @@ int main (int argc, char* argv[])
     return -1;
   }
 
-  cout << endl;
-  cout << size << " items returned." << endl;
+  cout << size << " items returned in round " << i << "." << endl;
+}
 
   return 0;
 }

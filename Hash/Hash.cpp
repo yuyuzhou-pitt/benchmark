@@ -41,7 +41,7 @@ int list_hash(unordered_map< string, double >& myrecipe, long long size){
 int main (int argc, char* argv[])
 {
 
-  string usage = "USAGE: ./hash <insert|delete|list> <size>";
+  string usage = "USAGE: ./hash <insert|delete|list> <size> <rounds>";
 
   if ( argc < 3 ){
    cout << usage << endl;
@@ -51,10 +51,20 @@ int main (int argc, char* argv[])
   char* cmd = argv[1];
   long long size = atoll(argv[2]);
 
-  cout << cmd << " with size " << size << endl;
+  int rounds = 1; // run 1 time by default 
+  if ( argc > 3) {
+    rounds = atoll(argv[3]);
+  }
+
+  cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << endl;
+
   unordered_map< string, double > myrecipe;
 
   long long  ret = 0;
+
+int i;
+for (i=0;i<rounds;++i){
+
   if ( strcmp(cmd, "insert") == 0 ) {
     ret = insert_hash( myrecipe, size );
   }
@@ -71,7 +81,10 @@ int main (int argc, char* argv[])
     return -1;
   }
   
-  cout << ret << " items returned." << endl;
+  cout << size << " items returned in round " << i << "." << endl;
+
+
+}
 
   return 0;
 }
