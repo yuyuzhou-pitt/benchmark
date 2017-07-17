@@ -366,25 +366,31 @@ int i;
 for (i=0;i<rounds;++i){
 
   if ( strcmp( cmd, "insert" ) == 0 ) {
+    __asm__ ("lfence");
     for (long long i=0;i<size;++i){
      int val = rand() % range;
      rb_tree.insert(val);
     }
+    __asm__ ("rfence");
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
      rb_tree.insert(i);
     }
+    __asm__ ("lfence");
     for (long long i=0;i<size;++i){
      rb_tree.delete_value(i);
     }
+    __asm__ ("rfence");
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
      int val = rand() % range;
      rb_tree.insert(val);
     }
+    __asm__ ("lfence");
     rb_tree.inorder();
+    __asm__ ("rfence");
   }
   else {
     cout << usage << endl;

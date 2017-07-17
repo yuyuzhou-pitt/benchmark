@@ -51,17 +51,21 @@ int i;
 for (i=0;i<rounds;++i){
   
   if ( strcmp(cmd, "insert") == 0 ) {
+    __asm__ ("lfence");
     for (long long i=0;i<size;++i){
        add_edge(family(i%7), family((i+1)%7), g);
     }
+    __asm__ ("rfence");
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
        add_edge(family(i%7), family((i+1)%7), g);
     }
+    __asm__ ("lfence");
     for (long long i=0;i<size;++i){
        remove_edge(family(i%7), family((i+1)%7), g);
     }
+    __asm__ ("rfence");
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
@@ -73,6 +77,7 @@ for (i=0;i<rounds;++i){
     property_map < adjacency_list <>, vertex_index_t >::type
       index_map = get(vertex_index, g);
   
+    __asm__ ("lfence");
     for (boost::tie(i, end) = vertices(g); i != end; ++i) {
       std::cout << name[get(index_map, *i)];
       boost::tie(ai, a_end) = adjacent_vertices(*i, g);
@@ -87,6 +92,7 @@ for (i=0;i<rounds;++i){
       }
       std::cout << std::endl;
     }
+    __asm__ ("rfence");
 
   }
   else {

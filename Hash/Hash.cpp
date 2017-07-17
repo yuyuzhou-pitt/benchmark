@@ -66,15 +66,22 @@ int i;
 for (i=0;i<rounds;++i){
 
   if ( strcmp(cmd, "insert") == 0 ) {
+    __asm__ ("lfence");
     ret = insert_hash( myrecipe, size );
+    __asm__ ("rfence");
   }
-  else if ( strcmp( cmd, "delete" ) == 0 ){
+  else 
+  if ( strcmp( cmd, "delete" ) == 0 ){
     ret = insert_hash( myrecipe, size );
+    __asm__ ("lfence");
     ret = delete_hash( myrecipe, size );
+    __asm__ ("rfence");
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     ret = insert_hash( myrecipe, size );
+    __asm__ ("lfence");
     ret = list_hash( myrecipe, size );
+    __asm__ ("rfence");
   }
   else {
     cout << usage << endl;

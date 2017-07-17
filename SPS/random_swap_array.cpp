@@ -44,12 +44,14 @@ int main(int argc, char** argv)
          cout <<"Failed to alloc memory\n";
          exit(1);
     }
-    for(uint64_t i = 0;i < n;i++)
+    for(register uint64_t i = 0;i < n;i++)
         arr[i]=i;
 
     //shuffle(arr,n);
-    for(uint64_t i = 0;i < 1000;i++)
+    __asm__ ("lfence");
+    for(register uint64_t i = 0;i < 1000;i++)
         swap(arr[i],arr[random_range(0,n-1)]);
+    __asm__ ("rfence");
 
     cout << n << " times returned in round " << round << "." << endl;
   }
