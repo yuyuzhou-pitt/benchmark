@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     __asm__ ("lfence");
     for(register uint64_t i = 0;i < 1000;i++)
         swap(arr[i],arr[random_range(0,n-1)]);
-    __asm__ ("rfence");
+    __asm__ ("sfence");
 
     cout << n << " times returned in round " << round << "." << endl;
   }

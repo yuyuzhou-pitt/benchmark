@@ -55,7 +55,7 @@ for (i=0;i<rounds;++i){
     for (long long i=0;i<size;++i){
        add_edge(family(i%7), family((i+1)%7), g);
     }
-    __asm__ ("rfence");
+    __asm__ ("sfence");
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
@@ -65,7 +65,7 @@ for (i=0;i<rounds;++i){
     for (long long i=0;i<size;++i){
        remove_edge(family(i%7), family((i+1)%7), g);
     }
-    __asm__ ("rfence");
+    __asm__ ("sfence");
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
@@ -92,7 +92,7 @@ for (i=0;i<rounds;++i){
       }
       std::cout << std::endl;
     }
-    __asm__ ("rfence");
+    __asm__ ("sfence");
 
   }
   else {

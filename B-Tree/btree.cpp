@@ -634,7 +634,7 @@ for (i=0;i<rounds;++i){
     for (long long i=0;i<size;++i){
      btree.insert(i);
     }
-    __asm__ ("rfence");
+    __asm__ ("sfence");
   }
   else if ( strcmp( cmd, "delete" ) == 0 ){
     for (long long i=0;i<size;++i){
@@ -644,7 +644,7 @@ for (i=0;i<rounds;++i){
     for (long long i=0;i<size;++i){
      btree.remove(i);
     }
-    __asm__ ("rfence");
+    __asm__ ("sfence");
   }
   else if ( strcmp( cmd, "list" ) == 0 ){
     for (long long i=0;i<size;++i){
@@ -652,7 +652,7 @@ for (i=0;i<rounds;++i){
     }
     __asm__ ("lfence");
     btree.traverse();
-    __asm__ ("rfence");
+    __asm__ ("sfence");
   }
   else {
     cout << usage << endl;
