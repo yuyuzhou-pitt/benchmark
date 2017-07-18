@@ -95,10 +95,10 @@
 //#   define STREAM_ARRAY_SIZE	45000  //1MB
 //#   define STREAM_ARRAY_SIZE	90000  //2MB
 //#   define STREAM_ARRAY_SIZE	180000  //4MB
-#   define STREAM_ARRAY_SIZE	350000  //8MB 
+//#   define STREAM_ARRAY_SIZE	350000  //8MB 
 //#   define STREAM_ARRAY_SIZE	700000  //16MB 
 //#   define STREAM_ARRAY_SIZE	1400000  //32MB 
-//#   define STREAM_ARRAY_SIZE	4500000  //100MB
+#   define STREAM_ARRAY_SIZE	4500000  //100MB
 #endif
 
 /*  2) STREAM runs each kernel "NTIMES" times and reports the *best* result
@@ -564,32 +564,40 @@ void tuned_STREAM_Copy()
 {
 	ssize_t j;
 #pragma omp parallel for
+        __asm__ ("lfence");
         for (j=0; j<STREAM_ARRAY_SIZE; j++)
             c[j] = a[j];
+        __asm__ ("sfence");
 }
 
 void tuned_STREAM_Scale(STREAM_TYPE scalar)
 {
 	ssize_t j;
 #pragma omp parallel for
+        __asm__ ("lfence");
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
 	    b[j] = scalar*c[j];
+        __asm__ ("sfence");
 }
 
 void tuned_STREAM_Add()
 {
 	ssize_t j;
 #pragma omp parallel for
+        __asm__ ("lfence");
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
 	    c[j] = a[j]+b[j];
+        __asm__ ("sfence");
 }
 
 void tuned_STREAM_Triad(STREAM_TYPE scalar)
 {
 	ssize_t j;
 #pragma omp parallel for
+        __asm__ ("lfence");
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
 	    a[j] = b[j]+scalar*c[j];
+        __asm__ ("sfence");
 }
 /* end of stubs for the "tuned" versions of the kernels */
 #endif
