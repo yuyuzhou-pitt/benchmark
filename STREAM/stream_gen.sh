@@ -11,6 +11,7 @@
 
 SRC=stream.c
 SUFIX=1MB
+rm -rf stream_c_*.exe
 for MEM in 2800 45000 90000 180000 350000 700000 1400000 4500000; do
     sed -ie "s/^\#   define STREAM_ARRAY_SIZE/\/\/\#   define STREAM_ARRAY_SIZE/g" $SRC
     sed -ie "s/^\/\/\#   define STREAM_ARRAY_SIZE\t$MEM /\#   define STREAM_ARRAY_SIZE\t$MEM /g" $SRC
@@ -30,5 +31,5 @@ for MEM in 2800 45000 90000 180000 350000 700000 1400000 4500000; do
     esac;
 
     mv stream_c.exe stream_c_${SUFIX}.exe
-    ./stream_c_${SUFIX}.exe
+    #./stream_c_${SUFIX}.exe
 done

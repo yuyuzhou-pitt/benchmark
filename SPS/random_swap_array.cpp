@@ -18,11 +18,18 @@ uint64_t random_range(uint64_t x,uint64_t y)                   //To generate a r
     return (x + (rand() % (uint64_t)(y - x + 1)));
 }
 
+int idle_loop(long long size){
+  long long i;
+  for (i=0;i<size;++i){
+    __asm__ ("mov %%eax, %%eax"::);
+  }
+}
+
 int main(int argc, char** argv)
 {
     uint64_t n;
-    if (argc < 2) {
-        cout<<"usage: "<<argv[0]<<" <array_size> <rounds>\n";
+    if (argc < 3) {
+        cout<<"usage: "<<argv[0]<<" <array_size> <rounds> <idle_loop>\n";
         return -1; 
     }
     else {
@@ -33,6 +40,11 @@ int main(int argc, char** argv)
   if ( argc > 2) {
     rounds = atoll(argv[2]);
   }
+  long long idle_l = 0; // no idle by default
+  if ( argc > 3) {
+    idle_l = atoll(argv[3]);
+  }
+
 
   cout << argv[0] << " with size " << n << " repeat " << rounds << " rounds" << endl;
 
@@ -53,6 +65,7 @@ int main(int argc, char** argv)
         swap(arr[i],arr[random_range(0,n-1)]);
     __asm__ ("sfence");
 
+    idle_loop(idle_l);
     cout << n << " times returned in round " << round << "." << endl;
   }
     //display(arr,n);

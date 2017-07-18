@@ -18,20 +18,26 @@
 enum family
 { Jeanie, Debbie, Rick, John, Amanda, Margaret, Benjamin, N };
 
+int idle_loop(long long size){
+  long long i;
+  for (i=0;i<size;++i){
+    __asm__ ("mov %%eax, %%eax"::);
+  }
+}
+
 int
 main(int argc, char* argv[] )
 {
   using namespace boost;
-  std::string usage = "USAGE: ./SDG <insert|delete|list> <size> <rounds>";
+  std::string usage = "USAGE: ./SDG <insert|delete|list> <size> <rounds> <idle_loop>";
 
-  if ( argc < 3 ){
+  if ( argc < 4 ){
    std::cout << usage << std::endl;
    return -1;
   }
 
   char* cmd = argv[1];
   long long size = atoll(argv[2]);
-
 
 
   const char *name[] = { "Jeanie", "Debbie", "Rick", "John", "Amanda",
@@ -43,6 +49,11 @@ main(int argc, char* argv[] )
   int rounds = 1; // run 1 time by default
   if ( argc > 3) {
     rounds = atoll(argv[3]);
+  }
+
+  long long idle_l = 0; // no idle by default
+  if ( argc > 4) {
+    idle_l = atoll(argv[4]);
   }
 
   std::cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << std::endl;
@@ -100,6 +111,7 @@ for (i=0;i<rounds;++i){
     return -1;
   }
 
+  idle_loop(idle_l);
   std::cout << size << " items returned in round " << i << "." << std::endl;
 
 }

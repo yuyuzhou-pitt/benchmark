@@ -212,8 +212,16 @@ extern void tuned_STREAM_Triad(STREAM_TYPE scalar);
 #ifdef _OPENMP
 extern int omp_get_num_threads();
 #endif
+
+int idle_loop(long long size){
+  long long i;
+  for (i=0;i<size;++i){
+    __asm__ ("mov %%eax, %%eax"::);
+  }
+}
+
 int
-main()
+main (int argc, char* argv[])
     {
     int			quantum, checktick();
     int			BytesPerWord;
@@ -221,11 +229,20 @@ main()
     ssize_t		j;
     STREAM_TYPE		scalar;
     double		t, times[4][NTIMES];
+
+  char* usage = "USAGE: ./STREAM <idle_loop>";
+
+  if ( argc < 1 ){
+   printf(usage);
+   return -1;
+  }
+
+  long long idle_l = 0; // no idle by default
+  if ( argc > 1) {
+    idle_l = atoll(argv[1]);
+  }
+
     /* --- SETUP --- determine precision and check timing --- */
-
-
-
-
     printf(HLINE);
     printf("STREAM version $Revision: 5.10 $\n");
     printf(HLINE);
@@ -355,6 +372,8 @@ main()
 	    a[j] = b[j]+scalar*c[j];
 #endif
 	times[3][k] = mysecond() - times[3][k];
+
+        idle_loop(idle_l);
 	}
 
     /*	--- SUMMARY --- */

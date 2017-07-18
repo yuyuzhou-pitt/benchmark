@@ -38,12 +38,19 @@ int list_hash(unordered_map< string, double >& myrecipe, long long size){
   return size;
 }
 
+int idle_loop(long long size){
+  long long i;
+  for (i=0;i<size;++i){
+    __asm__ ("mov %%eax, %%eax"::);
+  }
+}
+
 int main (int argc, char* argv[])
 {
 
-  string usage = "USAGE: ./hash <insert|delete|list> <size> <rounds>";
+  string usage = "USAGE: ./hash <insert|delete|list> <size> <rounds> <idle_loop>";
 
-  if ( argc < 3 ){
+  if ( argc < 4 ){
    cout << usage << endl;
    return -1;
   }
@@ -54,6 +61,11 @@ int main (int argc, char* argv[])
   int rounds = 1; // run 1 time by default 
   if ( argc > 3) {
     rounds = atoll(argv[3]);
+  }
+
+  long long idle_l = 0; // no idle by default
+  if ( argc > 4) {
+    idle_l = atoll(argv[4]);
   }
 
   cout << cmd << " with size " << size << " repeat " << rounds << " rounds" << endl;
@@ -88,6 +100,7 @@ for (i=0;i<rounds;++i){
     return -1;
   }
   
+  idle_loop(idle_l);
   cout << size << " items returned in round " << i << "." << endl;
 
 
